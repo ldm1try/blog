@@ -22,6 +22,7 @@ class CreateBlogUploadsTable extends Migration
             $table->string('mime_type');
             $table->bigInteger('size');
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('post_id')->references('id')->on('blog_posts');
         });
     }

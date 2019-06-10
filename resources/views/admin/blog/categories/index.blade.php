@@ -5,5 +5,58 @@
 @endsection
 
 @section('content')
-    AdminBlogCategories
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+
+            <a href="{{ route('admin.blog.categories.create') }}" class="btn btn-primary mb-3">Добавить</a>
+
+            <div class="card">
+                <div class="">
+                    <table class="table table-hover">
+                        <thread>
+                            <tr>
+                                <th>#</th>
+                                <th>Категория</th>
+                                <th>Родитель</th>
+                            </tr>
+                        </thread>
+                        <tbody>
+                            @foreach($paginator as $item)
+                                @php /** @var \App\BlogCategory $item */ @endphp
+                                <tr>
+                                    <td>{{ $item->id }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.blog.categories.edit', $item->id) }}">
+                                            {{ $item->title }}
+                                        </a>
+                                    </td>
+                                    <td @if(in_array($item->parent_id, [0, 1])) style="color: #ccc" @endif>
+                                        {{--{{ $item->parentCategory()->title ?? '?' }}
+
+                                        {{ optional($item->parentCategory)->title }}
+
+                                        {{
+                                            $item->parentCategory()->title
+                                                ?? ($item->id === \App\Models\BlogCategory::ROOT
+                                                    ? 'Корень'
+                                                    : '???')
+                                        }}--}}
+
+                                        {{ $item->parentTitle }} {{--accessor в BlogCategory--}}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if($paginator->total() > $paginator->count())
+        <div class="row mt-3">
+            <div class="col-md-12">
+                {{ $paginator->links() }}
+            </div>
+        </div>
+    @endif
 @endsection
