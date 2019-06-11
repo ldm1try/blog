@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BlogPost extends Model
@@ -45,20 +44,4 @@ class BlogPost extends Model
         // Статья принадлежит пользователю
         return $this->belongsTo(User::class);
     }
-
-    public function upload()
-    {
-        return $this->HasMany(BlogUpload::class, 'post_id');
-    }
-
-    /**
-     * Автор статьи
-     *
-     * @return HasMany
-     */
-    /*public function upload()
-    {
-        // Файл принадлежит посту
-        return $this->HasMany(BlogUpload::class, 'post_id');
-    }*/
 }

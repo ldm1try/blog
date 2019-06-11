@@ -26,7 +26,7 @@
                     <tbody>
                     @foreach($paginator as $post)
                         @php
-                            /** @var \App\Models\BlogPost $post */
+                            /** @var \App\BlogPost $post */
                         @endphp
                         <tr @if(!$post->is_published) style="background-color: #ddd;" @endif>
                             <td>{{ $post->id }}</td>

@@ -15,7 +15,7 @@
    @endif
    @csrf
 
-       <div class="container">
+       <div class="">
            @php
            /** @var \Illuminate\Support\ViewErrorBag $errors */
            @endphp
@@ -46,10 +46,10 @@
            @endif
 
            <div class="row justify-content-center">
-               <div class="col-md-8">
+               <div class="col-md">
                    @include('admin.blog.categories.includes.item_edit_main_col')
                </div>
-               <div class="col-md-3">
+               <div class="col-md-auto">
                    @include('admin.blog.categories.includes.item_edit_add_col')
                </div>
            </div>

@@ -107,13 +107,13 @@
                     <label class="custom-file-label" for="upload" data-browse="Выбрать">Добавить фото</label>
                 </div>
             </div>
-            @if (isset($images) && !$images->isEmpty())
+            {{--@if (isset($images) && !$images->isEmpty())
                 <div class="card-footer">
                     @foreach ($images as $image)
                         <img class="mb-1" style="max-height: 100px; width: auto" src="{{ asset("storage/$image->path") }}" data-toggle="tooltip" data-placement="top" title="{{ $image->original_name }}" />
                     @endforeach
                 </div>
-            @endif
+            @endif--}}
         </div>
     </div>
 </div>

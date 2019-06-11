@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    @php /** @var \App\BlogPost $item */ @endphp
+    @php /** @var App\BlogPost $item */ @endphp
 
     <div class="">
 
@@ -33,16 +33,6 @@
                 <form id="delete" method="POST" action="{{ route('admin.blog.posts.destroy', $item->id) }}" hidden>
                     @method('DELETE')
                     @csrf
-                    <div class="row justify-content-center mt-2">
-                        <div class="col-md-9">
-                            <div class="card card-block">
-                                <div class="card-body ml-auto">
-                                    <button type="submit" class="btn btn-primary">Удалить</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3"></div>
-                    </div>
                 </form>
             @endif
     </div>

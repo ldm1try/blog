@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\BlogPost;
-use App\BlogUpload;
 use App\Http\Requests\BlogPostCreateRequest;
 use Illuminate\Http\Request;
 use App\Repositories\BlogPostRepository;
 use App\Repositories\BlogCategoryRepository;
-use Illuminate\Support\Facades\Storage;
 
 class BlogPostController extends Controller
 {
@@ -69,24 +67,6 @@ class BlogPostController extends Controller
         $data = $request->input();
         $item = (new BlogPost())->create($data);
 
-        /**
-         * Сохраняем файлы в хранилише, базу.
-         */
-        if ($request->file('upload')) {
-            $files = $request->file('upload');
-            foreach ($files as $file) {
-                $path = Storage::putFile('upload/media', $file);
-                (new BlogUpload())->create([
-                    'post_id' => $item->id,
-                    'path' => $path,
-                    'original_name' => $file->getClientOriginalName(),
-                    'extension' => $file->getClientOriginalExtension(),
-                    'mime_type' => $file->getMimeType(),
-                    'size' => $file->getSize(),
-                ]);
-            }
-        }
-
         if ($item) {
             return redirect()->route('admin.blog.posts.index', [$item->id])
                 ->with(['success' => 'Успешно сохранено']);
@@ -123,10 +103,8 @@ class BlogPostController extends Controller
         $categoryList
             = $this->blogCategoryRepository->getForComboBox();
 
-        $images = BlogPost::find($id)->upload;
-
         return view('admin.blog.posts.edit',
-            compact('item', 'categoryList', 'images'));
+            compact('item', 'categoryList'));
     }
 
     /**
@@ -150,24 +128,6 @@ class BlogPostController extends Controller
 
         $result = $item->update($data);
 
-        /**
-         * Сохраняем файлы в хранилише, базу.
-         */
-        if ($request->file('upload')) {
-            $files = $request->file('upload');
-            foreach ($files as $file) {
-                $path = Storage::putFile('upload/media', $file);
-                (new BlogUpload())->create([
-                    'post_id' => $item->id,
-                    'path' => $path,
-                    'original_name' => $file->getClientOriginalName(),
-                    'extension' => $file->getClientOriginalExtension(),
-                    'mime_type' => $file->getMimeType(),
-                    'size' => $file->getSize(),
-                ]);
-            }
-        }
-
         if ($result) {
             return redirect()
                 ->route('admin.blog.posts.edit', $item->id)
@@ -187,7 +147,6 @@ class BlogPostController extends Controller
      */
     public function destroy($id)
     {
-        BlogUpload::where('post_id', $id)->delete();
 
         $result = BlogPost::destroy($id);
         // полное удаление из бд
@@ -209,8 +168,6 @@ class BlogPostController extends Controller
     public function restore($id)
     {
         $result = $this->blogPostRepository->getForRestore($id)->restore();
-
-        BlogUpload::where('post_id', $id)->restore();
 
         if ($result) {
             return redirect()
