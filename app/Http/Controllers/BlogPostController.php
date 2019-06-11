@@ -7,6 +7,7 @@ use App\Http\Requests\BlogPostCreateRequest;
 use Illuminate\Http\Request;
 use App\Repositories\BlogPostRepository;
 use App\Repositories\BlogCategoryRepository;
+use Illuminate\Support\Facades\Storage;
 
 class BlogPostController extends Controller
 {
@@ -117,6 +118,12 @@ class BlogPostController extends Controller
     public function update(Request $request, $id)
     {
         $item = $this->blogPostRepository->getEdit($id);
+
+
+        $files = $request->file('upload');
+        foreach ($files as $file) {
+            $item->addMedia($file)->toMediaCollection();
+        }
 
         if (empty($item)) {
             return back()

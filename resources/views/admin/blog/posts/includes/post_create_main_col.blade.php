@@ -107,13 +107,16 @@
                     <label class="custom-file-label" for="upload" data-browse="Выбрать">Добавить фото</label>
                 </div>
             </div>
-            {{--@if (isset($images) && !$images->isEmpty())
+
+            <span class="d-none">{{ $mediaItems = $item->getMedia() }}</span>
+            @if (isset($mediaItems) && !$mediaItems->isEmpty())
                 <div class="card-footer">
-                    @foreach ($images as $image)
-                        <img class="mb-1" style="max-height: 100px; width: auto" src="{{ asset("storage/$image->path") }}" data-toggle="tooltip" data-placement="top" title="{{ $image->original_name }}" />
+                    @foreach ($mediaItems as $image)
+                        {{--<img class="mb-1" style="max-height: 100px; width: auto" src="{{ asset("$image->path") }}" data-toggle="tooltip" data-placement="top" title="{{ $image->original_name }}" />--}}
+                        <img src="{{ $image->disk }}/{{ $image->order_column }}/{{ $image->file_name }}" alt="">
                     @endforeach
                 </div>
-            @endif--}}
+            @endif
         </div>
     </div>
 </div>

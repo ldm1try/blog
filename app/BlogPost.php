@@ -5,9 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class BlogPost extends Model
+class BlogPost extends Model implements HasMedia
 {
+    use HasMediaTrait;
     use SoftDeletes;
 
     const UNKNOWN_USER = 1;
