@@ -107,15 +107,14 @@
                     <label class="custom-file-label" for="upload" data-browse="Выбрать">Добавить фото</label>
                 </div>
             </div>
-
-
             @if (isset($photoFiles) && !$photoFiles->isEmpty())
                 <div class="card-footer">
-                    <div class="">
+                    <div class="row">
                         @foreach ($photoFiles as $photoFile)
-                            <div class="">
+                            <div class="mr-2 mb-2">
                                 {{--{{ $photoFile('photo-conversion') }}--}}
-                                <img src="{{ $photoFile->getUrl('photo-conversion') }}" class="img-fluid">
+                                <img src="{{ $photoFile->getUrl('photo-conversion_thumb') }}" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+                                {{--<img src="{{ $photoFile->getUrl() }}">--}}
                             </div>
                         @endforeach
                     </div>

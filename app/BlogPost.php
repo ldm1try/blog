@@ -49,16 +49,24 @@ class BlogPost extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Laravel Medialibrary
+     */
     public function registerMediaCollections()
     {
         $this
             ->addMediaCollection('photo')
             ->registerMediaConversions(function (Media $media) {
                 $this
-                    ->addMediaConversion('photo-conversion')
-                    ->width(368)
-                    ->height(232)
-                    ->sharpen(10);
+                    ->addMediaConversion('photo-conversion_thumb')
+                    ->optimize()
+                    ->width(200)
+                    ->height(100);
+
+                $this
+                    ->addMediaConversion('photo-conversion_optimize')
+                    ->optimize();
             });
     }
 }
+// TODO: Можно ли удалить исходные файлы после преобразования изображений с помощью Spatie Media Library (v7) - например, клиент загружает файлы с огромным разрешением, но нам нужны только их ширину около 1000 пикселей и не нужно хранить огромные оригиналы.
