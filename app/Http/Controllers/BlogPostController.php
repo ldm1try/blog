@@ -101,11 +101,13 @@ class BlogPostController extends Controller
             abort(404);
         }
 
+        $photoFiles = $item->getMedia('photo');
+
         $categoryList
             = $this->blogCategoryRepository->getForComboBox();
 
         return view('admin.blog.posts.edit',
-            compact('item', 'categoryList'));
+            compact('item', 'categoryList', 'photoFiles'));
     }
 
     /**
@@ -119,10 +121,10 @@ class BlogPostController extends Controller
     {
         $item = $this->blogPostRepository->getEdit($id);
 
-
-        $files = $request->file('upload');
-        foreach ($files as $file) {
-            $item->addMedia($file)->toMediaCollection();
+        //Загрузка фото
+        $photoFiles = $request->file('photo_upload');
+        foreach ($photoFiles as $photoFile) {
+            $item->addMedia($photoFile)->toMediaCollection('photo');
         }
 
         if (empty($item)) {

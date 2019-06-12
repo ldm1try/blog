@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 
 class BlogPost extends Model implements HasMedia
 {
@@ -46,5 +47,18 @@ class BlogPost extends Model implements HasMedia
     {
         // Статья принадлежит пользователю
         return $this->belongsTo(User::class);
+    }
+
+    public function registerMediaCollections()
+    {
+        $this
+            ->addMediaCollection('photo')
+            ->registerMediaConversions(function (Media $media) {
+                $this
+                    ->addMediaConversion('photo-conversion')
+                    ->width(368)
+                    ->height(232)
+                    ->sharpen(10);
+            });
     }
 }

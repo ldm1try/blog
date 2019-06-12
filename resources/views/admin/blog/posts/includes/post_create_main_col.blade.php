@@ -102,19 +102,23 @@
                     <input class="custom-file-input"
                            id="upload"
                            type="file"
-                           name="upload[]"
+                           name="photo_upload[]"
                            multiple>
                     <label class="custom-file-label" for="upload" data-browse="Выбрать">Добавить фото</label>
                 </div>
             </div>
 
-            <span class="d-none">{{ $mediaItems = $item->getMedia() }}</span>
-            @if (isset($mediaItems) && !$mediaItems->isEmpty())
+
+            @if (isset($photoFiles) && !$photoFiles->isEmpty())
                 <div class="card-footer">
-                    @foreach ($mediaItems as $image)
-                        {{--<img class="mb-1" style="max-height: 100px; width: auto" src="{{ asset("$image->path") }}" data-toggle="tooltip" data-placement="top" title="{{ $image->original_name }}" />--}}
-                        <img src="{{ $image->disk }}/{{ $image->order_column }}/{{ $image->file_name }}" alt="">
-                    @endforeach
+                    <div class="">
+                        @foreach ($photoFiles as $photoFile)
+                            <div class="">
+                                {{--{{ $photoFile('photo-conversion') }}--}}
+                                <img src="{{ $photoFile->getUrl('photo-conversion') }}" class="img-fluid">
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             @endif
         </div>
