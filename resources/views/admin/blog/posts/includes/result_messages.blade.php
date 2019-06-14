@@ -10,7 +10,7 @@
                     <span aria-hidden="true">&times;﻿</span>
                 </button>
                 {{--{{ $errors->first() }}--}}
-                <ul>
+                <ul class="list-unstyled">
                     @foreach($errors->all() as $errorTxt)
                         <li>{{ $errorTxt }}</li>
                     @endforeach

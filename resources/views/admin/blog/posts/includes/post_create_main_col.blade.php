@@ -27,7 +27,7 @@
                     <div class="tab-pane active" id="maindata" role="tabpanel">
                         <div class="form-group">
                             <label for="title">Заголовок</label>
-                            <input name="title" value="{{ $item->title }}"
+                            <input name="title" value="{{ old('title', $item->title) }}"
                                    id="title"
                                    type="text"
                                    class="form-control"
@@ -104,7 +104,9 @@
                            type="file"
                            name="photo_upload[]"
                            multiple>
-                    <label class="custom-file-label" for="upload" data-browse="Выбрать">Добавить фото</label>
+                    <label class="custom-file-label" for="upload" data-browse="Выбрать">
+                        Добавить фото (jpeg, jpg, png, до 5Мб)
+                    </label>
                 </div>
             </div>
             @if (isset($photoFiles) && !$photoFiles->isEmpty())
@@ -112,8 +114,12 @@
                     <div class="row">
                         @foreach ($photoFiles as $photoFile)
                             <div class="mr-2 mb-2">
+                                <img class="img-thumb"
+                                     src="{{ $photoFile->getUrl('photo-conversion_optimize') }}"
+                                     data-toggle="tooltip"
+                                     data-placement="top"
+                                     title="{{ $photoFile->name }}">
                                 {{--{{ $photoFile('photo-conversion') }}--}}
-                                <img src="{{ $photoFile->getUrl('photo-conversion_thumb') }}" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                                 {{--<img src="{{ $photoFile->getUrl() }}">--}}
                             </div>
                         @endforeach

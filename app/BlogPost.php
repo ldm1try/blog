@@ -58,14 +58,7 @@ class BlogPost extends Model implements HasMedia
             ->addMediaCollection('photo')
             ->registerMediaConversions(function (Media $media) {
                 $this
-                    ->addMediaConversion('photo-conversion_thumb')
-                    ->optimize()
-                    ->width(200)
-                    ->height(100);
-
-                $this
-                    ->addMediaConversion('photo-conversion_optimize')
-                    ->optimize();
+                    ->addMediaConversion('photo-conversion_optimize');
             });
     }
 }

@@ -23,10 +23,11 @@ class BlogPostCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'       => 'required|min:5|max:200|unique:blog_posts',
-            'slug'        => 'max:200',
-            'content_raw' => 'required|string|min:5|max:10000',
-            'category_id' => 'required|integer|exists:blog_categories,id',
+            'title'          => 'required|min:5|max:200|unique:blog_posts',
+            'slug'           => 'max:200',
+            'content_raw'    => 'required|string|min:5|max:10000',
+            'category_id'    => 'required|integer|exists:blog_categories,id',
+            'photo_upload.*' => 'mimetypes:image/jpeg,image/jpg,image/png|max:5120',
         ];
     }
     /**
@@ -41,7 +42,9 @@ class BlogPostCreateRequest extends FormRequest
         // resource\lang\validation
         return [
             'title.required' => 'Введите заголовок статьи',
-            'content_raw.min' => 'Минимальная длинна статьи [:min] символов',
+            'content_raw.min' => 'Минимальная длинна статьи :min символов',
+            'content_raw.max' => 'Минимальная длинна статьи :max символов',
+            'photo_upload.*.max'  => 'Максимальный объем одного файла не должен превышать :max Кбайт',
         ];
     }
     /**

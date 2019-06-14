@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\BlogPost;
 use App\Http\Requests\BlogPostCreateRequest;
+use App\Http\Requests\BlogPostUpdateRequest;
 use Illuminate\Http\Request;
 use App\Repositories\BlogPostRepository;
 use App\Repositories\BlogCategoryRepository;
@@ -68,8 +69,16 @@ class BlogPostController extends Controller
         $data = $request->input();
         $item = (new BlogPost())->create($data);
 
+        //Загрузка фото
+        if ($photoFiles = $request->file('photo_upload')) {
+            foreach ($photoFiles as $photoFile) {
+                $item->addMedia($photoFile)->toMediaCollection('photo');
+            }
+        }
+        // TODO: Вынести в репозиторий, запилить проверку на наличие файла в реквесте. Убрать сохранение оригиналов.
+
         if ($item) {
-            return redirect()->route('admin.blog.posts.index', [$item->id])
+            return redirect()->route('admin.blog.posts.edit', [$item->id])
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()->withErrors(['msg' => 'Ошибка сохранения'])
@@ -117,15 +126,17 @@ class BlogPostController extends Controller
      * @param  \App\BlogPost  $blogPost
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BlogPostUpdateRequest $request, $id)
     {
         $item = $this->blogPostRepository->getEdit($id);
 
         //Загрузка фото
-        $photoFiles = $request->file('photo_upload');
-        foreach ($photoFiles as $photoFile) {
-            $item->addMedia($photoFile)->toMediaCollection('photo');
+        if ($photoFiles = $request->file('photo_upload')) {
+            foreach ($photoFiles as $photoFile) {
+                $item->addMedia($photoFile)->toMediaCollection('photo');
+            }
         }
+        // TODO: Вынести в репозиторий, запилить проверку на наличие файла в реквесте.
 
         if (empty($item)) {
             return back()
