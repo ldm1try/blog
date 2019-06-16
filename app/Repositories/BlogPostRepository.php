@@ -64,8 +64,8 @@ class BlogPostRepository extends CoreRepository
         return $this->startConditions()->find($id);
     }
 
-    public function getForRestore($id)
+    /*public function getForRestore($id)
     {
         return $this->startConditions()->withTrashed()->find($id);
-    }
+    }*/
 }

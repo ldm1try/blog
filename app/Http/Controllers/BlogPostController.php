@@ -8,7 +8,6 @@ use App\Http\Requests\BlogPostUpdateRequest;
 use Illuminate\Http\Request;
 use App\Repositories\BlogPostRepository;
 use App\Repositories\BlogCategoryRepository;
-use Illuminate\Support\Facades\Storage;
 
 class BlogPostController extends Controller
 {
@@ -75,7 +74,6 @@ class BlogPostController extends Controller
                 $item->addMedia($photoFile)->toMediaCollection('photo');
             }
         }
-        // TODO: Вынести в репозиторий, запилить проверку на наличие файла в реквесте. Убрать сохранение оригиналов.
 
         if ($item) {
             return redirect()->route('admin.blog.posts.edit', [$item->id])
@@ -136,7 +134,6 @@ class BlogPostController extends Controller
                 $item->addMedia($photoFile)->toMediaCollection('photo');
             }
         }
-        // TODO: Вынести в репозиторий, запилить проверку на наличие файла в реквесте.
 
         if (empty($item)) {
             return back()
@@ -167,10 +164,15 @@ class BlogPostController extends Controller
      */
     public function destroy($id)
     {
+        //Удаление фото
+        $item = $this->blogPostRepository->getEdit($id);
+        $photoFiles = $item->getMedia('photo');
+            foreach ($photoFiles as $photoFile) {
+                $photoFile->delete();
+            }
 
-        $result = BlogPost::destroy($id);
-        // полное удаление из бд
-        //$result = BlogPost::find($id)->forceDelete();
+        /*$result = BlogPost::destroy($id);*/ // soft delete
+        $result = BlogPost::find($id)->forceDelete(); // полное удаление из бд
 
         if ($result) {
             return redirect()
@@ -185,7 +187,7 @@ class BlogPostController extends Controller
     /**
      * Восстановление удаленного поста
      */
-    public function restore($id)
+    /*public function restore($id)
     {
         $result = $this->blogPostRepository->getForRestore($id)->restore();
 
@@ -196,5 +198,5 @@ class BlogPostController extends Controller
         } else {
             return back()->withErrors(['msg' => 'Ошибка восстановления записи']);
         }
-    }
+    }*/
 }

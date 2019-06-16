@@ -56,6 +56,7 @@ class BlogCategoryController extends Controller
         $data = $request->input();
         //Создаст объект и добавит в БД до "save"
         $item = (new BlogCategory())->create($data);
+
         if ($item) {
             return redirect()->route('admin.blog.categories.edit', [$item->id])
                 ->with(['success' => 'Успешно сохранено']);
@@ -64,6 +65,7 @@ class BlogCategoryController extends Controller
                 ->withInput();
         }
     }
+
     /**
      * Display the specified resource.
      *
@@ -93,8 +95,9 @@ class BlogCategoryController extends Controller
         }
         $categoryList
             = $this->blogCategoryRepository->getForComboBox();
+
         return view('admin.blog.categories.edit',
-            compact('item', 'categoryList'));
+            compact('item', 'categoryList', 'categories'));
     }
     /**
      * Update the specified resource in storage.

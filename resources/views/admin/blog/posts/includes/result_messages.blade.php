@@ -29,12 +29,12 @@
                 </button>
                 {{ session()->get('success') }}
 
-                @if (session('restore'))
+                {{--@if (session('restore'))
                     <form method="GET" action="{{ route('blog.admin.posts.restore', session()->get('restore')) }}">
                         @csrf
                         <button type="submit" class="btn btn-link">Восстановить</button>
                     </form>
-                @endif
+                @endif--}}
             </div>
         </div>
     </div>

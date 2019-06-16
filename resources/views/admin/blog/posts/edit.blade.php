@@ -30,7 +30,11 @@
             </form>
 
             @if($item->exists)
-                <form id="delete" method="POST" action="{{ route('admin.blog.posts.destroy', $item->id) }}" hidden>
+                <form onsubmit="if(confirm('Удалить')){ return true } else { return false }"
+                      id="delete"
+                      method="POST"
+                      action="{{ route('admin.blog.posts.destroy', $item->id) }}"
+                      hidden>
                     @method('DELETE')
                     @csrf
                 </form>
