@@ -24,6 +24,8 @@ class BlogPostController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('auth');
+
         parent::__construct();
         $this->blogPostRepository = app(BlogPostRepository::class);
         $this->blogCategoryRepository = app(BlogCategoryRepository::class);

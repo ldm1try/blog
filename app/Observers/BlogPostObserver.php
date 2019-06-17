@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\BlogPost;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class BlogPostObserver
@@ -66,7 +67,7 @@ class BlogPostObserver
      */
     protected function setUser(BlogPost $blogPost)
     {
-        $blogPost->user_id = auth()->id ?? BlogPost::UNKNOWN_USER; //?? - в противном случае
+        $blogPost->user_id = Auth::id() ?? BlogPost::UNKNOWN_USER; //?? - в противном случае
     }
     /**
      * Отработка ПЕРЕД обновлением записи
