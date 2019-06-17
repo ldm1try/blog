@@ -54,6 +54,7 @@ class BlogCategoryController extends Controller
     public function store(BlogCategoryUpdateRequest $request)
     {
         $data = $request->input();
+
         //Создаст объект и добавит в БД до "save"
         $item = (new BlogCategory())->create($data);
 

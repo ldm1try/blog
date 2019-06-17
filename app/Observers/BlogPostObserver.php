@@ -15,7 +15,7 @@ class BlogPostObserver
      */
     public function creating(BlogPost $blogPost)
     {
-        $blogPost->user_id = auth()->id();
+        //$blogPost->user_id = auth()->id();
 
         $this->setPublishedAt($blogPost);
         $this->setSlug($blogPost);
