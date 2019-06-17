@@ -22,6 +22,7 @@ class BlogCategory extends Model
      * id корня
      */
     const ROOT = 1;
+
     protected $fillable
         = [
             'title',

@@ -41,7 +41,7 @@
                                 placeholder="Выберите категорию"
                                 required>
                             @foreach($categoryList as $categoryOption)
-                                <option value="{{ $item->parent_id }}"
+                                <option value="{{ $categoryOption->id }}"
                                         @if($categoryOption->id == $item->parent_id) selected @endif
                                         @if($item->id == $categoryOption->id) class="d-none" @endif>
                                         {{--{{ $categoryOption->id }}. {{ $categoryOption->title}}--}}

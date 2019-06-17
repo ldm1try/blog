@@ -65,6 +65,7 @@ class BlogCategoryRepository extends CoreRepository
             ->selectRaw($columns)
             ->toBase()
             ->get();
+
         return $result;
     }
 
@@ -78,6 +79,7 @@ class BlogCategoryRepository extends CoreRepository
     public function getAllWithPaginate($perPage = null)
     {
         $columns = ['id', 'title', 'parent_id'];
+
         $result = $this
             ->startConditions()
             ->select($columns)
@@ -85,6 +87,7 @@ class BlogCategoryRepository extends CoreRepository
                 'parentCategory:id,title',
             ])
             ->paginate($perPage);
+
         return $result;
     }
 }

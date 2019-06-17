@@ -11,4 +11,11 @@
     >
         Категории
     </a>
+
+    <a class="list-group-item list-group-item-action mt-3
+       {{ Request::is('admin/blog/categories', 'admin/blog/categories/*') ? 'active' : '' }}"
+       href="{{ route('admin.blog.categories.index') }}"
+    >
+        Пользователи
+    </a>
 </div>
