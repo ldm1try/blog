@@ -145,8 +145,15 @@ class BlogCategoryController extends Controller
 
         BlogPost::where('category_id', '=', "$item->id")->forceDelete();
 
-        $item->delete();
+        $result = $item->delete();
 
-        return redirect()->route('admin.blog.categories.index');
+        if ($result) {
+            return redirect()
+                ->route('admin.blog.categories.index')
+                ->with(['success' => 'Успешно удалено']);
+        } else {
+            return back()
+                ->withErrors(['msg' => 'Ошибка удаления']);
+        }
     }
 }

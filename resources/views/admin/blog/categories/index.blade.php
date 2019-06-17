@@ -8,6 +8,8 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
 
+            @include('admin.blog.categories.includes.result_messages')
+
             <a href="{{ route('admin.blog.categories.create') }}" class="btn btn-primary mb-3">Добавить</a>
 
             <div class="card">
