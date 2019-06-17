@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\BlogCategory;
+use App\BlogPost;
 use Illuminate\Http\Request;
 use App\Http\Requests\BlogCategoryUpdateRequest;
 use Illuminate\Support\Str;
@@ -139,6 +140,13 @@ class BlogCategoryController extends Controller
      */
     public function destroy($id)
     {
-        dd(__METHOD__);
+        //dd(__METHOD__);
+        $item = BlogCategory::find($id);
+
+        BlogPost::where('category_id', '=', "$item->id")->forceDelete();
+
+        $item->delete();
+
+        return redirect()->route('admin.blog.categories.index');
     }
 }

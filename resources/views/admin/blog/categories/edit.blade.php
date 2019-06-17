@@ -55,4 +55,15 @@
            </div>
        </div>
    </form>
+
+   @if($item->exists)
+       <form onsubmit="if(confirm('Удалить')){ return true } else { return false }"
+             id="delete"
+             method="POST"
+             action="{{ route('admin.blog.categories.destroy', $item->id) }}"
+             hidden>
+           @method('DELETE')
+           @csrf
+       </form>
+   @endif
 @endsection
