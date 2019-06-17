@@ -93,6 +93,7 @@ class BlogCategoryController extends Controller
         if (empty($item)){
             abort(404);
         }
+
         $categoryList
             = $this->blogCategoryRepository->getForComboBox();
 
