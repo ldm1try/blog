@@ -6,7 +6,9 @@
             <div class="card-body">
                 <button type="submit" class="btn btn-primary">Сохранить</button>
                 @isset($item->id)
-                    <button type="submit" form="delete" class="btn btn-primary">Удалить</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal">
+                        Удалить
+                    </button>
                 @endisset
             </div>
         </div>
