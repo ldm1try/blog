@@ -21,6 +21,9 @@ Auth::routes();
     // /admin
     Route::get('/admin', 'AdminController@index')->name('admin');
 
+    // /admin/users
+    Route::resource('/admin/users', 'UserController')->names('admin.users')->except(['show']);
+
     // /admin/blog
     $adminBlogData = [
         'prefix' => 'admin/blog'
