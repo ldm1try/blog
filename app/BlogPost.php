@@ -45,7 +45,6 @@ class BlogPost extends Model implements HasMedia
      */
     public function user()
     {
-        // Статья принадлежит пользователю
         return $this->belongsTo(User::class);
     }
 

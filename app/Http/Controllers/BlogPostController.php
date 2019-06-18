@@ -174,7 +174,7 @@ class BlogPostController extends Controller
             }
 
         /*$result = BlogPost::destroy($id);*/ // soft delete
-        $result = BlogPost::find($id)->forceDelete(); // полное удаление из бд
+        $result = BlogPost::find($id)->forceDelete();
 
         if ($result) {
             return redirect()

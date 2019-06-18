@@ -140,10 +140,9 @@ class BlogCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //dd(__METHOD__);
         $item = BlogCategory::find($id);
 
-        BlogPost::where('category_id', '=', "$item->id")->delete();
+        BlogPost::where('category_id', '=', "$item->id")->forceDelete();
 
         $result = $item->delete();
 
