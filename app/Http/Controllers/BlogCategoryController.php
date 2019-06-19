@@ -142,8 +142,19 @@ class BlogCategoryController extends Controller
     {
         $item = BlogCategory::find($id);
 
+        //Удаление фотографий постов
+        $postsList = BlogPost::where('category_id', '=', "$item->id")->get();
+            foreach ($postsList as $post) {
+                $photoFiles = $post->getMedia('photo');
+                foreach ($photoFiles as $photoFile) {
+                    $photoFile->delete();
+                }
+            }
+
+        //Удаление поcтов категории
         BlogPost::where('category_id', '=', "$item->id")->forceDelete();
 
+        //Удаление категории
         $result = $item->delete();
 
         if ($result) {
