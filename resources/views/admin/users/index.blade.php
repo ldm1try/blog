@@ -8,7 +8,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
 
-            {{--@include('admin.blog.posts.includes.result_messages')--}}
+            @include('admin.users.includes.result_messages')
 
             <a class="btn btn-primary mb-3" href="{{ route('admin.users.create') }}">Добавить</a>
 

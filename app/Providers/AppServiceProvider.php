@@ -6,8 +6,10 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Observers\BlogCategoryObserver;
 use App\Observers\BlogPostObserver;
+use App\Observers\UserObserver;
 use App\BlogCategory;
 use App\BlogPost;
+use App\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,5 +34,6 @@ class AppServiceProvider extends ServiceProvider
 
         BlogPost::observe(BlogPostObserver::class);
         BlogCategory::observe(BlogCategoryObserver::class);
+        User::observe(UserObserver::class);
     }
 }

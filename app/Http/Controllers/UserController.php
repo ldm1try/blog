@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Http\Request;
 use App\User;
 
@@ -34,7 +36,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        dd(__METHOD__);
+        $item = new User();
+
+        return view('admin.users.edit', compact('item'));
     }
 
     /**
@@ -43,9 +47,34 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserCreateRequest $request)
     {
-        //
+        $name = $request->input('name');
+        $email = $request->input('email');
+
+        $password = $request->input('password');
+        $hashpass =  bcrypt($password);
+        $confirm_password = $request->input('confirm_password');
+        $hashconfirm = bcrypt($confirm_password);
+
+            if ($hashpass = $hashconfirm) {
+                $item = (new User())->create([
+                    'name' => "$name",
+                    'email' => "$email",
+                    'password' => "$hashpass",
+                ]);
+            } else {
+                return back()->withErrors(['msg' => 'Пароли не совпадают'])
+                    ->withInput();
+            }
+
+        if ($hashpass) {
+            return redirect()->route('admin.users.edit', [$item->id])
+                ->with(['success' => 'Успешно сохранено']);
+        } else {
+            return back()->withErrors(['msg' => 'Ошибка сохранения'])
+                ->withInput();
+        }
     }
 
     /**
@@ -67,7 +96,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        dd(__METHOD__);
+        $item = User::find($id);
+
+        return view('admin.users.edit', compact('item'));
     }
 
     /**
@@ -77,9 +108,21 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
-        //
+        $item = User::find($id);
+        $data = $request->only(['name', 'email']);
+        $result = $item->update($data);
+
+        if ($result) {
+            return redirect()
+                ->route('admin.users.index', $item->id)
+                ->with(['success' => 'Успешно сохранено']);
+        } else {
+            return back()
+                ->withErrors(['msg' => 'Ошибка сохранения'])
+                ->withInput();
+        }
     }
 
     /**
@@ -90,6 +133,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        dd(__METHOD__);
+        User::find($id)->delete();
+
+        return redirect()->route('admin.users.index');
     }
 }
