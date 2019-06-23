@@ -57,8 +57,8 @@ class UserController extends Controller
         $confirm_password = $request->input('confirm_password');
         $hashconfirm = bcrypt($confirm_password);
 
-            if ($hashpass = $hashconfirm) {
-                $item = (new User())->create([
+            if ($password == $confirm_password) {
+                $result = $item = (new User())->create([
                     'name' => "$name",
                     'email' => "$email",
                     'password' => "$hashpass",
@@ -68,7 +68,7 @@ class UserController extends Controller
                     ->withInput();
             }
 
-        if ($hashpass) {
+        if ($result) {
             return redirect()->route('admin.users.edit', [$item->id])
                 ->with(['success' => 'Успешно сохранено']);
         } else {
@@ -111,8 +111,26 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request, $id)
     {
         $item = User::find($id);
-        $data = $request->only(['name', 'email']);
-        $result = $item->update($data);
+
+        $name = $request->input('name');
+        $email = $request->input('email');
+
+        $password = $request->input('password');
+        $hashpass =  bcrypt($password);
+        $confirm_password = $request->input('confirm_password');
+        $hashconfirm = bcrypt($confirm_password);
+
+            if ($password == $confirm_password) {
+                $result = $item->update([
+                    'name' => "$name",
+                    'email' => "$email",
+                    'password' => "$hashpass",
+                    //'confirm_password' => "$hashpass",
+                ]);
+            } else {
+                return back()->withErrors(['msg' => 'Пароли не совпадают'])
+                    ->withInput();
+            }
 
         if ($result) {
             return redirect()
