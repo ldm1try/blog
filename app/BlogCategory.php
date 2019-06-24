@@ -30,6 +30,7 @@ class BlogCategory extends Model
             'parent_id',
             'description',
         ];
+
     /**
      * Получить родительскую категорию
      *
@@ -39,6 +40,7 @@ class BlogCategory extends Model
     {
         return $this->belongsTo(BlogCategory::class, 'parent_id', 'id');
     }
+
     /**
      * Пример аксессуара (Accessor)
      *
@@ -52,6 +54,7 @@ class BlogCategory extends Model
                 : '???');
         return $title;
     }
+
     /**
      * Является ли текущий объект корневым
      */

@@ -22,6 +22,7 @@ class BlogCategoryController extends Controller
         $this->middleware('auth');
 
         parent::__construct();
+
         $this->blogCategoryRepository = app(BlogCategoryRepository::class);
     }
     /**
