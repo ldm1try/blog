@@ -35,7 +35,7 @@ Auth::routes();
             ->names('admin.blog.categories');
 
         //BlogPost
-        Route::resource('posts', 'BLogPostController')
+        Route::resource('posts', 'BlogPostController')
             ->except(['show'])
             ->names('admin.blog.posts');
 
