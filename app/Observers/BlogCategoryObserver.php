@@ -4,13 +4,19 @@ namespace App\Observers;
 
 use App\Models\Admin\Blog\BlogCategory;
 use Illuminate\Support\Str;
+use App\Repositories\BlogCategoryRepository;
 
 class BlogCategoryObserver
 {
+    public function __construct()
+    {
+        $this->blogCategoryRepository = app(BlogCategoryRepository::class);
+    }
+
     /**
      * Handle the blog category "created" event.
      *
-     * @param  \App\BlogCategory  $blogCategory
+     * @param  \App\Models\Admin\Blog\BlogCategory  $blogCategory
      * @return void
      */
     public function created(BlogCategory $blogCategory) //методы которые происходят после события
@@ -36,7 +42,7 @@ class BlogCategoryObserver
     /**
      * Handle the blog category "updated" event.
      *
-     * @param  \App\BlogCategory  $blogCategory
+     * @param  \App\Models\Admin\Blog\BlogCategory  $blogCategory
      * @return void
      */
     public function updated(BlogCategory $blogCategory)
@@ -53,17 +59,34 @@ class BlogCategoryObserver
     /**
      * Handle the blog category "deleted" event.
      *
-     * @param  \App\BlogCategory  $blogCategory
+     * @param  \App\Models\Admin\Blog\BlogCategory  $blogCategory
      * @return void
      */
     public function deleted(BlogCategory $blogCategory)
     {
         //
     }
+
+    public function deleting(BlogCategory $blogCategory)
+    {
+        // Удаление фотографий постов затем постов
+        $category_id = $blogCategory->id;
+        if ($items = $this->blogCategoryRepository->getCategoryPosts($category_id)) {
+            foreach($items as $item) {
+                $photoFiles = $item->getMedia('photo');
+                foreach ($photoFiles as $photoFile) {
+                    $photoFile->delete();
+                }
+
+                $item->forceDelete();
+            }
+        }
+    }
+
     /**
      * Handle the blog category "restored" event.
      *
-     * @param  \App\BlogCategory  $blogCategory
+     * @param  \App\Models\Admin\Blog\BlogCategory  $blogCategory
      * @return void
      */
     public function restored(BlogCategory $blogCategory)
@@ -73,7 +96,7 @@ class BlogCategoryObserver
     /**
      * Handle the blog category "force deleted" event.
      *
-     * @param  \App\BlogCategory  $blogCategory
+     * @param  \App\Models\Admin\Blog\BlogCategory  $blogCategory
      * @return void
      */
     public function forceDeleted(BlogCategory $blogCategory)

@@ -142,13 +142,7 @@ class BlogCategoryController extends Controller
      */
     public function destroy($id)
     {
-        // Удаление фотографий постов удаляемой категории через репозиторий
-        $this->blogCategoryRepository->deletePostsPhoto($id);
-
-        // Удаление постов категории через репозиторий
-        $this->blogCategoryRepository->deleteCategoryPosts($id);
-
-        // Удаление категории
+        // Удаление категории (Удаление фотографий постов затем постов происходит в обсервере)
         $result = $this->blogCategoryRepository->getEdit($id)->forceDelete();
 
         //Если категория со всем содержимым удалена

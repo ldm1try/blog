@@ -57,37 +57,12 @@ class BlogCategoryRepository extends CoreRepository
     }
 
     /**
-     * Получение списка постов катеогии
+     * Получение постов категории
      */
     public function getCategoryPosts($id)
     {
         $item = $this->getEdit($id);
 
         return BlogPost::where('category_id', '=', "$item->id")->get();
-    }
-
-    /**
-     * Удаление фотографий постов удаляемой категории
-     */
-    public function deletePostsPhoto($id)
-    {
-        $items = $this->getCategoryPosts($id);
-            foreach($items as $item) {
-                $photoFiles = $item->getMedia('photo');
-                foreach ($photoFiles as $photoFile) {
-                    $photoFile->delete();
-                }
-            }
-    }
-
-    /**
-     * Удаление постов категории
-     */
-    public function deleteCategoryPosts($id)
-    {
-        $postsList = $this->getCategoryPosts($id);
-        foreach ($postsList as $post) {
-            $post->forceDelete();
-        }
     }
 }
