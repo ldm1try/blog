@@ -19,27 +19,28 @@ Auth::routes();
 
 //> АДМИНКА БЛОГА
     // /admin
-    Route::get('/admin', 'AdminController@index')->name('admin');
+    Route::get('/admin', 'Admin\AdminController@index')->name('admin');
 
-    // /admin/users
-    Route::resource('/admin/users', 'UserController')->names('admin.users')->except(['show']);
+        // /admin/users
+        Route::resource('/admin/users', 'UserController')->names('admin.users')->except(['show']);
 
-    // /admin/blog
-    $adminBlogData = [
-        'prefix' => 'admin/blog'
-    ];
-    Route::group($adminBlogData, function(){
-        //BlogCategory
-        Route::resource('categories', 'BlogCategoryController')
-            ->except(['show'])
-            ->names('admin.blog.categories');
+        // /admin/blog
+        $adminBlogData = [
+            'namespace' =>'Admin\Blog',
+            'prefix' => 'admin/blog'
+        ];
+        Route::group($adminBlogData, function(){
+            //BlogCategory
+            Route::resource('categories', 'BlogCategoryController')
+                ->except(['show'])
+                ->names('admin.blog.categories');
 
-        //BlogPost
-        Route::resource('posts', 'BLogPostController')
-            ->except(['show'])
-            ->names('admin.blog.posts');
+            //BlogPost
+            Route::resource('posts', 'BlogPostController')
+                ->except(['show'])
+                ->names('admin.blog.posts');
 
-        //BlogPost restore()
-        Route::get('posts/{post}', 'BlogPostController@restore')->name('blog.admin.posts.restore');
-    });
+                //BlogPost restore()
+                //Route::get('posts/{post}', 'BlogPostController@restore')->name('blog.admin.posts.restore');
+        });
 //<

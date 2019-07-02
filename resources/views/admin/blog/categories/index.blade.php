@@ -22,7 +22,7 @@
                         </tr>
                     </thread>
                     <tbody>
-                        @foreach($paginator as $item)
+                        @foreach($items as $item)
                             @php /** @var \App\BlogCategory $item */ @endphp
                             <tr>
                                 <td>{{ $item->id }}</td>
@@ -52,10 +52,10 @@
             </div>
         </div>
     </div>
-    @if($paginator->total() > $paginator->count())
+    @if($items->total() > $items->count())
         <div class="row mt-3">
             <div class="col-md-12">
-                {{ $paginator->links() }}
+                {{ $items->links() }}
             </div>
         </div>
     @endif

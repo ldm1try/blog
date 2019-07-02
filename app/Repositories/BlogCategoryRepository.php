@@ -1,17 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lesnyakdv
- * Date: 23.05.2019
- * Time: 10:54
- */
 
 namespace App\Repositories;
 
-
-use App\BlogCategory as Model;
+use App\Models\Admin\Blog\BlogCategory as Model;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
+use App\Models\Admin\Blog\BlogPost;
 
 
 /**
@@ -53,13 +46,7 @@ class BlogCategoryRepository extends CoreRepository
             'id',
             'CONCAT (id, ". ", title) AS id_title',
         ]);
-        /*$result[] = $this->startConditions()->all();
-        $result[] = $this
-            ->startConditions()
-            ->select('blog_categories.*',
-                \DB::raw('CONCAT (id, ". ", title) AS id_title'))
-            ->toBase()
-            ->get();*/
+
         $result = $this
             ->startConditions()
             ->selectRaw($columns)
@@ -70,24 +57,37 @@ class BlogCategoryRepository extends CoreRepository
     }
 
     /**
-     * Получить категории для вывода пагинатором
-     *
-     * @param int|null $perPage
-     *
-     * @return LengthAwarePaginator
+     * Получение списка постов катеогии
      */
-    public function getAllWithPaginate($perPage = null)
+    public function getCategoryPosts($id)
     {
-        $columns = ['id', 'title', 'parent_id'];
+        $item = $this->getEdit($id);
 
-        $result = $this
-            ->startConditions()
-            ->select($columns)
-            ->with([
-                'parentCategory:id,title',
-            ])
-            ->paginate($perPage);
+        return BlogPost::where('category_id', '=', "$item->id")->get();
+    }
 
-        return $result;
+    /**
+     * Удаление фотографий постов удаляемой категории
+     */
+    public function deletePostsPhoto($id)
+    {
+        $items = $this->getCategoryPosts($id);
+            foreach($items as $item) {
+                $photoFiles = $item->getMedia('photo');
+                foreach ($photoFiles as $photoFile) {
+                    $photoFile->delete();
+                }
+            }
+    }
+
+    /**
+     * Удаление постов категории
+     */
+    public function deleteCategoryPosts($id)
+    {
+        $postsList = $this->getCategoryPosts($id);
+        foreach ($postsList as $post) {
+            $post->forceDelete();
+        }
     }
 }

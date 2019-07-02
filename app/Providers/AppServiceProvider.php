@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Schema;
 use App\Observers\BlogCategoryObserver;
 use App\Observers\BlogPostObserver;
 use App\Observers\UserObserver;
-use App\BlogCategory;
-use App\BlogPost;
+use App\Models\Admin\Blog\BlogCategory;
+use App\Models\Admin\Blog\BlogPost;
 use App\User;
 
 class AppServiceProvider extends ServiceProvider

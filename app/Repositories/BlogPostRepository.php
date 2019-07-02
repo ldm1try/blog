@@ -8,7 +8,7 @@
 
 namespace App\Repositories;
 
-use App\BlogPost as Model;
+use App\Models\Admin\Blog\BlogPost as Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 /**

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Blog;
 
-use App\BlogPost;
+use App\Http\Controllers\Controller;
+use App\Models\Admin\Blog\BlogPost;
 use App\Http\Requests\BlogPostCreateRequest;
 use App\Http\Requests\BlogPostUpdateRequest;
 use Illuminate\Http\Request;
@@ -38,9 +39,9 @@ class BlogPostController extends Controller
      */
     public function index()
     {
-        $paginator = $this->blogPostRepository->getAllWithPaginate();
+        $items = BlogPost::paginate(10);
 
-        return view('admin.blog.posts.index', compact('paginator'));
+        return view('admin.blog.posts.index', compact('items'));
     }
 
     /**
@@ -50,10 +51,8 @@ class BlogPostController extends Controller
      */
     public function create(Request $request)
     {
-
         $item = new BlogPost();
-        $categoryList
-            = $this->blogCategoryRepository->getForComboBox();
+        $categoryList = $this->blogCategoryRepository->getForComboBox();
 
         return view('admin.blog.posts.create',
             compact('item', 'categoryList'));
