@@ -22,18 +22,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php $__currentLoopData = $paginator; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <?php
-                            /** @var \App\BlogPost $post */
+                            /** @var \App\Models\Admin\Blog\BlogPost $post */
                         ?>
-                        <tr <?php if(!$post->is_published): ?> style="background-color: #ddd;" <?php endif; ?>>
-                            <td><?php echo e($post->id); ?></td>
-                            <td><?php echo e($post->user->name); ?></td>
-                            <td><?php echo e($post->category->title); ?></td>
+                        <tr <?php if(!$item->is_published): ?> style="background-color: #ddd;" <?php endif; ?>>
+                            <td><?php echo e($item->id); ?></td>
+                            <td><?php echo e($item->user->name); ?></td>
+                            <td><?php echo e($item->category->title); ?></td>
                             <td>
-                                <a href="<?php echo e(route('admin.blog.posts.edit', $post->id)); ?>"><?php echo e($post->title); ?></a>
+                                <a href="<?php echo e(route('admin.blog.posts.edit', $item->id)); ?>"><?php echo e($item->title); ?></a>
                             </td>
-                            <td><?php echo e($post->published_at ? \Carbon\Carbon::parse($post->published_at)->format('d.M H:i') : ''); ?></td>
+                            <td><?php echo e($item->published_at ? \Carbon\Carbon::parse($item->published_at)->format('d.M H:i') : ''); ?></td>
                         </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
@@ -42,10 +42,10 @@
             </div>
         </div>
     </div>
-    <?php if($paginator->total() > $paginator->count()): ?>
+    <?php if($items->total() > $items->count()): ?>
         <div class="row mt-3">
             <div class="col-md-12">
-                <?php echo e($paginator->links()); ?>
+                <?php echo e($items->links()); ?>
 
             </div>
         </div>
