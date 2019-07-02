@@ -65,30 +65,4 @@ class BlogCategoryRepository extends CoreRepository
 
         return BlogPost::where('category_id', '=', "$item->id")->get();
     }
-
-    /**
-     * Получение поста категории
-     */
-    public function getCategoryPost($id)
-    {
-        $item = $this->getEdit($id);
-        $postsList = BlogPost::where('category_id', '=', "$item->id")->get();
-            foreach ($postsList as $post) {
-                return $post;
-            }
-    }
-
-    /**
-     * Получение списка фото постов категории
-     */
-    public function getPostsPhoto($id)
-    {
-        $items = $this->getCategoryPosts($id);
-            foreach($items as $item) {
-                $photoFiles = $item->getMedia('photo');
-                foreach ($photoFiles as $photoFile) {
-                    return $photoFile;
-                }
-            }
-    }
 }

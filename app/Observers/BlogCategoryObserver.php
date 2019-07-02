@@ -4,9 +4,15 @@ namespace App\Observers;
 
 use App\Models\Admin\Blog\BlogCategory;
 use Illuminate\Support\Str;
+use App\Repositories\BlogCategoryRepository;
 
 class BlogCategoryObserver
 {
+    public function __construct()
+    {
+        $this->blogCategoryRepository = app(BlogCategoryRepository::class);
+    }
+
     /**
      * Handle the blog category "created" event.
      *
@@ -60,6 +66,23 @@ class BlogCategoryObserver
     {
         //
     }
+
+    public function deleting(BlogCategory $blogCategory)
+    {
+        // Удаление фотографий постов затем постов
+        $category_id = $blogCategory->id;
+        if ($items = $this->blogCategoryRepository->getCategoryPosts($category_id)) {
+            foreach($items as $item) {
+                $photoFiles = $item->getMedia('photo');
+                foreach ($photoFiles as $photoFile) {
+                    $photoFile->delete();
+                }
+
+                $item->forceDelete();
+            }
+        }
+    }
+
     /**
      * Handle the blog category "restored" event.
      *
