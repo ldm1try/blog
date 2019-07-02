@@ -39,9 +39,9 @@ class BlogPostController extends Controller
      */
     public function index()
     {
-        $paginator = $this->blogPostRepository->getAllWithPaginate();
+        $items = BlogPost::paginate(10);
 
-        return view('admin.blog.posts.index', compact('paginator'));
+        return view('admin.blog.posts.index', compact('items'));
     }
 
     /**
@@ -51,10 +51,8 @@ class BlogPostController extends Controller
      */
     public function create(Request $request)
     {
-
         $item = new BlogPost();
-        $categoryList
-            = $this->blogCategoryRepository->getForComboBox();
+        $categoryList = $this->blogCategoryRepository->getForComboBox();
 
         return view('admin.blog.posts.create',
             compact('item', 'categoryList'));

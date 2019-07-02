@@ -24,18 +24,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($paginator as $post)
+                    @foreach($items as $item)
                         @php
-                            /** @var \App\BlogPost $post */
+                            /** @var \App\Models\Admin\Blog\BlogPost $post */
                         @endphp
-                        <tr @if(!$post->is_published) style="background-color: #ddd;" @endif>
-                            <td>{{ $post->id }}</td>
-                            <td>{{ $post->user->name }}</td>
-                            <td>{{ $post->category->title }}</td>
+                        <tr @if(!$item->is_published) style="background-color: #ddd;" @endif>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->user->name }}</td>
+                            <td>{{ $item->category->title }}</td>
                             <td>
-                                <a href="{{ route('admin.blog.posts.edit', $post->id) }}">{{ $post->title }}</a>
+                                <a href="{{ route('admin.blog.posts.edit', $item->id) }}">{{ $item->title }}</a>
                             </td>
-                            <td>{{ $post->published_at ? \Carbon\Carbon::parse($post->published_at)->format('d.M H:i') : '' }}</td>
+                            <td>{{ $item->published_at ? \Carbon\Carbon::parse($item->published_at)->format('d.M H:i') : '' }}</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -44,10 +44,10 @@
             </div>
         </div>
     </div>
-    @if($paginator->total() > $paginator->count())
+    @if($items->total() > $items->count())
         <div class="row mt-3">
             <div class="col-md-12">
-                {{ $paginator->links() }}
+                {{ $items->links() }}
             </div>
         </div>
     @endif
