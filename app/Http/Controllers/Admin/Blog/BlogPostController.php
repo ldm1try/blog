@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Blog;
 
-use App\BlogPost;
+use App\Http\Controllers\Controller;
+use App\Models\Admin\Blog\BlogPost;
 use App\Http\Requests\BlogPostCreateRequest;
 use App\Http\Requests\BlogPostUpdateRequest;
 use Illuminate\Http\Request;

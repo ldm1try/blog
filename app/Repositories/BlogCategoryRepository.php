@@ -9,7 +9,7 @@
 namespace App\Repositories;
 
 
-use App\BlogCategory as Model;
+use App\Models\Admin\Blog\BlogCategory as Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
