@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\BlogPost;
+use App\Models\Admin\Blog\BlogPost;
 
 class DatabaseSeeder extends Seeder
 {

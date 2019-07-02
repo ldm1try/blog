@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\BlogPost;
+use App\Models\Admin\Blog\BlogPost;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;

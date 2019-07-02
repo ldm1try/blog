@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\BlogCategoryUpdateRequest;
 use Illuminate\Support\Str;
 use App\Repositories\BlogCategoryRepository;
+
 /**
  * Управление категориями блога
  *
@@ -36,9 +37,9 @@ class BlogCategoryController extends Controller
      */
     public function index()
     {
-        //$paginator = BlogCategory::paginate(5);
-        $paginator = $this->blogCategoryRepository->getAllWithPaginate(10);
-        return view('admin.blog.categories.index', compact('paginator'));
+        $items = BlogCategory::paginate(10);
+
+        return view('admin.blog.categories.index', compact('items'));
     }
     /**
      * Show the form for creating a new resource.
@@ -48,10 +49,8 @@ class BlogCategoryController extends Controller
     public function create()
     {
         $item = new BlogCategory();
-        $categoryList
-            = $this->blogCategoryRepository->getForComboBox();
-        return view('admin.blog.categories.edit',
-            compact('item', 'categoryList'));
+        $categoryList = $this->blogCategoryRepository->getForComboBox();
+        return view('admin.blog.categories.edit', compact('item', 'categoryList'));
     }
     /**
      * Store a newly created resource in storage.
@@ -95,7 +94,6 @@ class BlogCategoryController extends Controller
      */
     public function edit($id, BlogCategoryRepository $categoryRepository)
     {
-        //dd(__METHOD__);
         //$item = BlogCategory::FindOrFail($id);
         //$categoryList = BlogCategory::all();
         $item = $this->blogCategoryRepository->getEdit($id);
@@ -103,11 +101,9 @@ class BlogCategoryController extends Controller
             abort(404);
         }
 
-        $categoryList
-            = $this->blogCategoryRepository->getForComboBox();
+        $categoryList = $this->blogCategoryRepository->getForComboBox();
 
-        return view('admin.blog.categories.edit',
-            compact('item', 'categoryList', 'categories'));
+        return view('admin.blog.categories.edit', compact('item', 'categoryList', 'categories'));
     }
     /**
      * Update the specified resource in storage.
@@ -125,6 +121,7 @@ class BlogCategoryController extends Controller
                 ->withErrors(['msg' => "Запись id=[{$id}] не найдена"])
                 ->withInput();
         }
+
         $data = $request->all();
         $result = $item->update($data);
         if ($result) {
@@ -145,23 +142,16 @@ class BlogCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $item = BlogCategory::find($id);
+        // Удаление фотографий постов удаляемой категории через репозиторий
+        $this->blogCategoryRepository->deletePostsPhoto($id);
 
-        //Удаление фотографий постов
-        $postsList = BlogPost::where('category_id', '=', "$item->id")->get();
-            foreach ($postsList as $post) {
-                $photoFiles = $post->getMedia('photo');
-                foreach ($photoFiles as $photoFile) {
-                    $photoFile->delete();
-                }
-            }
+        // Удаление постов категории через репозиторий
+        $this->blogCategoryRepository->deleteCategoryPosts($id);
 
-        //Удаление поcтов категории
-        BlogPost::where('category_id', '=', "$item->id")->forceDelete();
+        // Удаление категории
+        $result = $this->blogCategoryRepository->getEdit($id)->forceDelete();
 
-        //Удаление категории
-        $result = $item->delete();
-
+        //Если категория со всем содержимым удалена
         if ($result) {
             return redirect()
                 ->route('admin.blog.categories.index')

@@ -20,7 +20,7 @@
                         </tr>
                     </thread>
                     <tbody>
-                        <?php $__currentLoopData = $paginator; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php /** @var \App\BlogCategory $item */ ?>
                             <tr>
                                 <td><?php echo e($item->id); ?></td>
@@ -42,10 +42,10 @@
             </div>
         </div>
     </div>
-    <?php if($paginator->total() > $paginator->count()): ?>
+    <?php if($items->total() > $items->count()): ?>
         <div class="row mt-3">
             <div class="col-md-12">
-                <?php echo e($paginator->links()); ?>
+                <?php echo e($items->links()); ?>
 
             </div>
         </div>
