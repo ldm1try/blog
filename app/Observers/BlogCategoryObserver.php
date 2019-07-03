@@ -70,8 +70,7 @@ class BlogCategoryObserver
     public function deleting(BlogCategory $blogCategory)
     {
         // Удаление фотографий постов затем постов
-        $category_id = $blogCategory->id;
-        if ($items = $this->blogCategoryRepository->getCategoryPosts($category_id)) {
+        if ($items = $this->blogCategoryRepository->getCategoryPosts($blogCategory->id)) {
             foreach($items as $item) {
                 $photoFiles = $item->getMedia('photo');
                 foreach ($photoFiles as $photoFile) {

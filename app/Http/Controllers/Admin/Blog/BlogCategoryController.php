@@ -94,8 +94,6 @@ class BlogCategoryController extends Controller
      */
     public function edit($id, BlogCategoryRepository $categoryRepository)
     {
-        //$item = BlogCategory::FindOrFail($id);
-        //$categoryList = BlogCategory::all();
         $item = $this->blogCategoryRepository->getEdit($id);
         if (empty($item)){
             abort(404);
@@ -114,7 +112,6 @@ class BlogCategoryController extends Controller
      */
     public function update(BlogCategoryUpdateRequest $request, $id)
     {
-        //dd(__METHOD__);
         $item = $this->blogCategoryRepository->getEdit($id);
         if (empty($item)) {
             return back()
@@ -135,17 +132,16 @@ class BlogCategoryController extends Controller
         }
     }
     /**
-     * Remove the specified resource from storage.
+     * Удаление категории (Перед удалением категории происходит удаление
+     * фотографий постов, затем постов. В обсервере)
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        // Удаление категории (Удаление фотографий постов затем постов происходит в обсервере)
         $result = $this->blogCategoryRepository->getEdit($id)->forceDelete();
 
-        //Если категория со всем содержимым удалена
         if ($result) {
             return redirect()
                 ->route('admin.blog.categories.index')

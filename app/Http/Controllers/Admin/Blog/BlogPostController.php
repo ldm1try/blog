@@ -111,8 +111,7 @@ class BlogPostController extends Controller
 
         $photoFiles = $item->getMedia('photo');
 
-        $categoryList
-            = $this->blogCategoryRepository->getForComboBox();
+        $categoryList = $this->blogCategoryRepository->getForComboBox();
 
         return view('admin.blog.posts.edit',
             compact('item', 'categoryList', 'photoFiles'));

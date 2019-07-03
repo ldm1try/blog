@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Admin\Blog\BlogCategory as Model;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\Admin\Blog\BlogPost;
+use App\Models\Admin\Blog\BlogCategory;
 
 
 /**
@@ -61,8 +62,6 @@ class BlogCategoryRepository extends CoreRepository
      */
     public function getCategoryPosts($id)
     {
-        $item = $this->getEdit($id);
-
-        return BlogPost::where('category_id', '=', "$item->id")->get();
+        return BlogCategory::find($id)->posts;
     }
 }
