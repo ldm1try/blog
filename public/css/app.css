@@ -1,12 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
-html,
-body,
-#app,
-main {
-  height: 100%;
-}
-
 .img-thumb {
   max-height: 120px;
   width: auto;

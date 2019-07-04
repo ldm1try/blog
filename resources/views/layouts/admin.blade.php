@@ -74,7 +74,7 @@
             </div>
         </nav>
 
-        <main class="py-4 bg-secondary">
+        <main class="py-4">
             <div class="container">
                 <div class="row">
                     <div class="col-md-auto">
