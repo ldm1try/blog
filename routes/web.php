@@ -44,3 +44,11 @@ Auth::routes();
                 //Route::get('posts/{post}', 'BlogPostController@restore')->name('blog.admin.posts.restore');
         });
 //<
+
+//> БЛОГ
+
+    // /blog/posts
+    Route::get('/blog/posts', 'Blog\BlogPostController@index');
+    Route::get('/blog/posts/tojson', 'Blog\BlogPostController@getJson');
+
+//<

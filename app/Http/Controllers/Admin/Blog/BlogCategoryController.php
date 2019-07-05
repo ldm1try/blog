@@ -37,7 +37,7 @@ class BlogCategoryController extends Controller
      */
     public function index()
     {
-        $items = BlogCategory::paginate(10);
+        $items = BlogCategory::orderBy('id', 'DESC')->paginate(10);
 
         return view('admin.blog.categories.index', compact('items'));
     }

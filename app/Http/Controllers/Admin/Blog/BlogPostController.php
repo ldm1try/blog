@@ -39,7 +39,7 @@ class BlogPostController extends Controller
      */
     public function index()
     {
-        $items = BlogPost::paginate(10);
+        $items = BlogPost::orderBy('id', 'DESC')->paginate(10);
 
         return view('admin.blog.posts.index', compact('items'));
     }
