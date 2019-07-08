@@ -4,18 +4,41 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Models\Admin\Blog\BlogPost;
+use App\Repositories\BlogPostRepository;
+use App\Repositories\BlogCategoryRepository;
 
 class BlogPostController
 {
-    public function index()
+    /**
+     * @var  BlogPostRepository
+     */
+    private $blogPostRepository;
+    /**
+     * @var  BlogCategoryRepository
+     */
+    private $blogCategoryRepository;
+    /**
+     * PostController constructor.
+     */
+    public function __construct()
     {
-        return view('blog.posts.index');
+        $this->blogPostRepository = app(BlogPostRepository::class);
+        $this->blogCategoryRepository = app(BlogCategoryRepository::class);
     }
 
-    public function getJson()
+    public function index()
     {
-        $postlist = BlogPost::orderBy('id', 'DESC')->get();
+        $items = BlogPost::orderBy('id', 'DESC')->where('is_published', 1)->paginate(20);
 
-        return $postlist;
+        return view('blog.posts.index', compact('items', 'photoFile'));
+    }
+
+    public function show($id)
+    {
+        $item = $this->blogPostRepository->getEdit($id);
+
+        $photoFiles = $item->getMedia('photo');
+
+        return view('blog.posts.detail', compact('item', 'photoFiles'));
     }
 }

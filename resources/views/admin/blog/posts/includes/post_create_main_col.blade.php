@@ -108,24 +108,25 @@
                         Добавить фото (jpeg, jpg, png, до 5Мб)
                     </label>
                 </div>
-            </div>
-            @if (isset($photoFiles) && !$photoFiles->isEmpty())
-                <div class="card-footer">
-                    <div class="row">
-                        @foreach ($photoFiles as $photoFile)
-                            <div class="mr-2 mb-2">
-                                <img class="img-thumb"
-                                     src="{{ $photoFile->getUrl('photo-conversion_optimize') }}"
-                                     data-toggle="tooltip"
-                                     data-placement="top"
-                                     title="{{ $photoFile->name }}">
-                                {{--{{ $photoFile('photo-conversion') }}--}}
-                                {{--<img src="{{ $photoFile->getUrl() }}">--}}
-                            </div>
-                        @endforeach
+
+                @if (isset($photoFiles) && !$photoFiles->isEmpty())
+                    <div class="mt-3">
+                        <div class="card-columns">
+                            @foreach ($photoFiles as $photoFile)
+                                <div class="card">
+                                    <img class="card-img-top"
+                                         src="{{ $photoFile->getUrl('photo-conversion_optimize') }}"
+                                         data-toggle="tooltip"
+                                         data-placement="top"
+                                         title="{{ $photoFile->name }}">
+                                    {{--{{ $photoFile('photo-conversion') }}--}}
+                                    {{--<img src="{{ $photoFile->getUrl() }}">--}}
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
-            @endif
+                @endif
+            </div>
         </div>
     </div>
 </div>

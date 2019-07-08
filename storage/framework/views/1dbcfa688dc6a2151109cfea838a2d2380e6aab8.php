@@ -109,24 +109,25 @@
                         Добавить фото (jpeg, jpg, png, до 5Мб)
                     </label>
                 </div>
-            </div>
-            <?php if(isset($photoFiles) && !$photoFiles->isEmpty()): ?>
-                <div class="card-footer">
-                    <div class="row">
-                        <?php $__currentLoopData = $photoFiles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $photoFile): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <div class="mr-2 mb-2">
-                                <img class="img-thumb"
-                                     src="<?php echo e($photoFile->getUrl('photo-conversion_optimize')); ?>"
-                                     data-toggle="tooltip"
-                                     data-placement="top"
-                                     title="<?php echo e($photoFile->name); ?>">
-                                
-                                
-                            </div>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                <?php if(isset($photoFiles) && !$photoFiles->isEmpty()): ?>
+                    <div class="mt-3">
+                        <div class="card-columns">
+                            <?php $__currentLoopData = $photoFiles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $photoFile): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <div class="card">
+                                    <img class="card-img-top"
+                                         src="<?php echo e($photoFile->getUrl('photo-conversion_optimize')); ?>"
+                                         data-toggle="tooltip"
+                                         data-placement="top"
+                                         title="<?php echo e($photoFile->name); ?>">
+                                    
+                                    
+                                </div>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
                     </div>
-                </div>
-            <?php endif; ?>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 </div><?php /**PATH C:\OSPanel\domains\localhost\blog\resources\views/admin/blog/posts/includes/post_create_main_col.blade.php ENDPATH**/ ?>

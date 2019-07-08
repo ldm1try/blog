@@ -85,7 +85,7 @@
 </script>
 
 <style>
-    .card-columns {
-        column-count: 1;
-    }
+    /*.card-columns {
+        column-count: 3;
+    }*/
 </style>
