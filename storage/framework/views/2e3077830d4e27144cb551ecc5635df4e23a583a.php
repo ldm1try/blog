@@ -19,9 +19,13 @@
                         <div class="card-columns">
                             <?php $__currentLoopData = $photoFiles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $photoFile): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div class="card">
-                                    <img class="card-img-top"
-                                         src="<?php echo e($photoFile->getUrl('photo-conversion_optimize')); ?>"
-                                         >
+                                    <a href="<?php echo e($photoFile->getUrl('photo-conversion_optimize')); ?>"
+                                       data-lightbox="image-<?php echo e($item->id); ?>"
+                                       data-title="<?php echo e($item->title); ?>">
+                                            <img class="card-img-top"
+                                                 src="<?php echo e($photoFile->getUrl('photo-conversion_optimize')); ?>"
+                                                 >
+                                    </a>
                                 </div>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>

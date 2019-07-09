@@ -23,11 +23,15 @@
                         <div class="card-columns">
                             @foreach($photoFiles as $photoFile)
                                 <div class="card">
-                                    <img class="card-img-top"
-                                         src="{{ $photoFile->getUrl('photo-conversion_optimize') }}"
-                                         {{--data-toggle="tooltip"
-                                         data-placement="top"
-                                         title="{{ $photoFile->name }}"--}}>
+                                    <a href="{{ $photoFile->getUrl('photo-conversion_optimize') }}"
+                                       data-lightbox="image-{{ $item->id }}"
+                                       data-title="{{ $item->title }}">
+                                            <img class="card-img-top"
+                                                 src="{{ $photoFile->getUrl('photo-conversion_optimize') }}"
+                                                 {{--data-toggle="tooltip"
+                                                 data-placement="top"
+                                                 title="{{ $photoFile->name }}"--}}>
+                                    </a>
                                 </div>
                             @endforeach
                         </div>

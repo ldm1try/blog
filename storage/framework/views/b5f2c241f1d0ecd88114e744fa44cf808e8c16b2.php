@@ -6,9 +6,7 @@
                     <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="card">
                             <img class="card-img-top"
-                                 src="<?php echo e($item->getFirstMediaUrl('photo')); ?>"
-                                 data-toggle="tooltip"
-                                 data-placement="top">
+                                 src="<?php echo e($item->getFirstMediaUrl('photo')); ?>">
 
                             <div class="card-body">
                                 <h5 class="card-title">

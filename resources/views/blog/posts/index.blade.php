@@ -8,9 +8,7 @@
                     @foreach($items as $item)
                         <div class="card">
                             <img class="card-img-top"
-                                 src="{{ $item->getFirstMediaUrl('photo') }}"
-                                 data-toggle="tooltip"
-                                 data-placement="top">
+                                 src="{{ $item->getFirstMediaUrl('photo') }}">
 
                             <div class="card-body">
                                 <h5 class="card-title">
