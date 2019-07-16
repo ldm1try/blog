@@ -22,7 +22,7 @@
     <div id="app">
         @include('blog.includes.navbar')
 
-        <main class="py-4">
+        <main class="py-3">
             @yield('content')
         </main>
     </div>

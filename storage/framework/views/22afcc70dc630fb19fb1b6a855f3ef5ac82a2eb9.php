@@ -22,7 +22,7 @@
     <div id="app">
         <?php echo $__env->make('blog.includes.navbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-        <main class="py-4">
+        <main class="py-3">
             <?php echo $__env->yieldContent('content'); ?>
         </main>
     </div>

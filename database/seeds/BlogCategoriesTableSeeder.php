@@ -28,6 +28,13 @@ class BlogCategoriesTableSeeder extends Seeder
                 'parent_id' => $parentId,
             ];
         }
+
+        /*$cName = 'Без категории';
+        $categories[] = [
+            'title' => $cName,
+            'slug' => Str::slug($cName),
+            'parent_id' => 0,
+        ];*/
         DB::table('blog_categories')->insert($categories);
     }
 }

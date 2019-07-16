@@ -9,7 +9,7 @@
 
                         <h5 class="card-title">
                             <a href="<?php echo e(route('post_detail', $item->id)); ?>">
-                                <?php echo e($item->id); ?> - <?php echo e($item->title); ?>
+                                <?php echo e($item->title); ?>
 
                             </a>
                         </h5>

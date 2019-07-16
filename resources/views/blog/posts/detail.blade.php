@@ -14,7 +14,7 @@
 
                         <h5 class="card-title">
                             <a href="{{ route('post_detail', $item->id) }}">
-                                {{ $item->id }} - {{ $item->title }}
+                                {{ $item->title }}
                             </a>
                         </h5>
 

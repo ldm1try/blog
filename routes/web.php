@@ -49,6 +49,8 @@ Auth::routes();
 
     // /blog/posts
     Route::get('/blog/posts', 'Blog\BlogPostController@index');
+    //Route::get('/blog/posts/tojson', 'Blog\BlogPostController@tojson');
+    //Route::get('/blog/posts/search', 'Blog\BlogPostController@search')->name('search');
     Route::get('/blog/posts/{id}', 'Blog\BlogPostController@show')->name('post_detail');
 
 //<

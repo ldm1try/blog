@@ -6,16 +6,13 @@
                     <div class="card-header">Example Component</div>
 
                     <div class="card-body">
-                        <button class="btn btn-success mb-1"  v-on:click="update" v-if="!is_refresh">
-                            Обновить - {{ counter }}
-                        </button>
-                        <span class="btn btn-primary mb-1" v-if="is_refresh">Обновление...</span>
-                        <!--<table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>id</th>
                                     <th>Заголовок</th>
                                     <th>Категория</th>
+                                    <th>Создано</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -23,20 +20,21 @@
                                     <td>{{ post.id }}</td>
                                     <td>{{ post.title }}</td>
                                     <td>{{ post.category_id }}</td>
+                                    <td>{{ post.created_at }}</td>
                                 </tr>
                             </tbody>
-                        </table>-->
+                        </table>
 
-                                <div class="card-columns">
-                                    <div class="card" v-for="post in postlist">
-                                        <div class="card-header">
-                                            {{ post.id }} - {{ post.title }}
-                                        </div>
-                                        <div class="card-body">
-                                            {{ post.excerpt }}
-                                        </div>
-                                    </div>
+                        <!--<div class="card-columns">
+                            <div class="card" v-for="post in postlist">
+                                <div class="card-header">
+                                    {{ post.id }} - {{ post.title }}
                                 </div>
+                                <div class="card-body">
+                                    {{ post.excerpt }}
+                                </div>
+                            </div>
+                        </div>-->
 
                     </div>
                 </div>
@@ -47,13 +45,13 @@
 
 <script>
     export default {
-        /*props: ['blogposts'],*/
+        /*props: [
+            'postlist'
+        ],*/
 
         data: function() {
             return {
                 postlist: [],
-                is_refresh: false,
-                counter: 0
             }
         },
 
@@ -63,12 +61,9 @@
 
         methods: {
             update: function () {
-                this.is_refresh = true;
                 axios.get('/blog/posts/tojson').then((response) => {
                     console.log(response);
-                    this.postlist = response.data;
-                    this.is_refresh = false;
-                    this.counter++
+                    this.postlist = response.data.data;
                 });
             }
         }
