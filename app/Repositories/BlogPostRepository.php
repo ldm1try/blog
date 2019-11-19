@@ -20,6 +20,18 @@ class BlogPostRepository extends CoreRepository
     }
 
     /**
+     * Получить список постов
+     *
+     * @param int id
+     *
+     * @return Model
+     */
+    public function getList()
+    {
+        return $this->startConditions()->orderBy('id', 'DESC')->where('is_published', 1)->paginate(20);
+    }
+
+    /**
      * Получить модель для редактирования в админке
      *
      * @param int id

@@ -29,7 +29,7 @@ class BlogPostController
 
     public function index()
     {
-        $items = BlogPost::orderBy('id', 'DESC')->where('is_published', 1)->paginate(20);
+        $items = $this->blogPostRepository->getList();
 
         return view('blog.posts.index', compact('items'));
     }
