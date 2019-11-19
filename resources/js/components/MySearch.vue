@@ -1,34 +1,34 @@
 <template>
     <div>
-
-        <div class="input-group mb-3">
-            <input type="text"
+        <div class="input-group">
+            <input v-if="!error" type="text"
                    class="form-control"
                    placeholder="Поиск по заголовкам"
-                   v-model.lazy="keywords"
+                   v-model="keywords"
                    autocomplete="off">
-            <div class="input-group-append">
-                <button  class="btn btn-primary" type="submit">Найти</button>
-            </div>
+            <input v-else type="text"
+                   class="form-control bg-danger text-white"
+                   placeholder="Поиск по заголовкам"
+                   v-model="keywords"
+                   autocomplete="off">
+            <!--<div class="input-group-append">
+                <button class="btn btn-primary" type="button" @click="fetch()">Найти</button>
+            </div>-->
         </div>
 
-        <transition name="fade">
-            <div class="alert alert-danger" v-if="error">
-                {{ error }}
-            </div>
-        </transition>
 
-        <transition name="fade">
-            <div v-if="results">
-                <ul class="list-group mb-3">
-                    <li class="list-group-item" v-for="result in results" :key="result.id">
-                        <a v-bind:href="'/blog/posts/' + result.id">
-                            <span v-html="highlight(result.title)"></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </transition>
+        <!--<div class="alert alert-danger mt-3" v-if="error">
+            {{ error }}
+        </div>-->
+
+        <ul class="list-group mt-3" v-if="results.length > 0 && keywords">
+            <li class="list-group-item" v-for="result in results">
+                <a v-bind:href="'/blog/posts/' + result.id">
+                    <div v-html="highlight(result.title)"></div>
+                </a>
+            </li>
+        </ul>
+
     </div>
 </template>
 
@@ -36,10 +36,9 @@
     export default {
         data() {
             return {
-                keywords: '',
-                results: '',
-                error: '',
-                posts: ''
+                keywords: null,
+                results: [],
+                error: null
             };
         },
 
@@ -49,16 +48,12 @@
             }
         },
 
-        /*mounted() {
-            this.showall()
-        },*/
-
         methods: {
             fetch() {
                 axios.get('/api/blog/posts', { params: { keywords: this.keywords } })
                     .then(response => response.data.error ? this.error = response.data.error : this.results = response.data);
-                this.results = '';
-                this.error = '';
+                this.results = [];
+                this.error = null;
             },
 
             highlight(text) {
@@ -78,5 +73,9 @@
     }
     .fade-enter, .fade-leave-to {
         opacity: 0;
+    }
+
+    .alert {
+        margin-bottom: 0;
     }
 </style>

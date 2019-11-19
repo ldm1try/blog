@@ -24,7 +24,7 @@
 
                 <my-search></my-search>
 
-                <div class="card-columns">
+                <div class="card-columns my-3">
                     @foreach($items as $item)
                         <div class="card">
                             <img class="card-img-top"

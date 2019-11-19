@@ -7,7 +7,7 @@
 
                 <my-search></my-search>
 
-                <div class="card-columns">
+                <div class="card-columns my-3">
                     <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="card">
                             <img class="card-img-top"
@@ -39,4 +39,5 @@
         <?php endif; ?>
     </div>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\OSPanel\domains\localhost\blog\resources\views/blog/posts/index.blade.php ENDPATH**/ ?>

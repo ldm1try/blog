@@ -63,4 +63,5 @@
             </ul>
         </div>
     </div>
-</nav><?php /**PATH C:\OSPanel\domains\localhost\blog\resources\views/blog/includes/navbar.blade.php ENDPATH**/ ?>
+</nav>
+<?php /**PATH C:\OSPanel\domains\localhost\blog\resources\views/blog/includes/navbar.blade.php ENDPATH**/ ?>

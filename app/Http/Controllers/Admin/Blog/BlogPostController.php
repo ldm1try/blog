@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Blog;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\AdminController;
 use App\Models\Admin\Blog\BlogPost;
 use App\Http\Requests\BlogPostCreateRequest;
 use App\Http\Requests\BlogPostUpdateRequest;
@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Repositories\BlogPostRepository;
 use App\Repositories\BlogCategoryRepository;
 
-class BlogPostController extends Controller
+class BlogPostController extends AdminController
 {
     /**
      * @var  BlogPostRepository
@@ -25,8 +25,6 @@ class BlogPostController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
-
         parent::__construct();
         $this->blogPostRepository = app(BlogPostRepository::class);
         $this->blogCategoryRepository = app(BlogCategoryRepository::class);

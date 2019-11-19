@@ -50,7 +50,7 @@ class BlogPostController
         if ($request->input('keywords')) {
             $items = BlogPost::search($request->input('keywords'))->get();
 
-            if ($items->count() > 0) {
+            if ($items->count()) {
                 return $items;
             } else {
                 return $error;

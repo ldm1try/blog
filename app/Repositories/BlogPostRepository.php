@@ -1,15 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lesnyakdv
- * Date: 23.05.2019
- * Time: 10:53
- */
 
 namespace App\Repositories;
 
 use App\Models\Admin\Blog\BlogPost as Model;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * Class BlogPostRepository

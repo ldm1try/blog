@@ -1,2 +1,0 @@
-[2019-06-28 09:01:39] local.ERROR: SQLSTATE[HY000] [2002] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение.
- (SQL: SHOW FULL TABLES WHERE table_type = 'BASE TABLE')  
