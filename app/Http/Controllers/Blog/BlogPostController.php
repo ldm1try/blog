@@ -3,7 +3,6 @@
 
 namespace App\Http\Controllers\Blog;
 
-use App\Models\Admin\Blog\BlogPost;
 use App\Repositories\BlogPostRepository;
 use App\Repositories\BlogCategoryRepository;
 use Illuminate\Http\Request;
@@ -47,8 +46,11 @@ class BlogPostController
     {
         $error = ['error' => 'По данному запросу результатов не найдено, попробуйте другой запрос.'];
 
-        if ($request->input('keywords')) {
-            $items = BlogPost::search($request->input('keywords'))->get();
+        $input = $request->input('keywords');
+
+        if ($input)
+        {
+            $items = $this->blogPostRepository->getSearch($input);
 
             if ($items->count()) {
                 return $items;

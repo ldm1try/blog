@@ -7,7 +7,7 @@
                    v-model="keywords"
                    autocomplete="off">
             <input v-else type="text"
-                   class="form-control bg-danger text-white"
+                   class="form-control is-invalid"
                    placeholder="Поиск по заголовкам"
                    v-model="keywords"
                    autocomplete="off">

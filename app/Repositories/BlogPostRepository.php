@@ -43,6 +43,17 @@ class BlogPostRepository extends CoreRepository
         return $this->startConditions()->find($id);
     }
 
+    /**
+     * Получить результаты поиска
+     *
+     * @param $input
+     * @return mixed
+     */
+    public function getSearch($input)
+    {
+        return $this->startConditions()->search($input)->get();
+    }
+
     /*public function getForRestore($id)
     {
         return $this->startConditions()->withTrashed()->find($id);
