@@ -21,13 +21,17 @@
             {{ error }}
         </div>-->
 
-        <ul class="list-group mt-3" v-if="results.length > 0 && keywords">
-            <li class="list-group-item" v-for="result in results">
-                <a v-bind:href="'/blog/posts/' + result.id">
-                    <div v-html="highlight(result.title)"></div>
-                </a>
-            </li>
-        </ul>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <ul class="list-group mt-3" v-if="results.length > 0 && keywords">
+                    <li class="list-group-item" v-for="result in results">
+                        <a v-bind:href="'/blog/posts/' + result.id">
+                            <div v-html="highlight(result.title)"></div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
     </div>
 </template>
