@@ -96,7 +96,7 @@ class BlogCategoryController extends AdminController
 
         $categoryList = $this->blogCategoryRepository->getForComboBox();
 
-        return view('admin.blog.categories.edit', compact('item', 'categoryList', 'categories'));
+        return view('admin.blog.categories.edit', compact('item', 'categoryList'));
     }
     /**
      * Update the specified resource in storage.

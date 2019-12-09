@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-   @php /** @var \App\BlogCategory $item */ @endphp
+   @php /** @var \App\Models\Admin\Blog\BlogCategory $item */ @endphp
 
    @if($item->exists)
        <form method="POST" action="{{ route('admin.blog.categories.update', $item->id) }}">
