@@ -12,10 +12,11 @@
         Категории
     </a>
 
-    <a class="list-group-item list-group-item-action my-3
+    <a class="list-group-item list-group-item-action
        <?php echo e(Request::is('admin/users', 'admin/users/*') ? 'active' : ''); ?>"
        href="<?php echo e(route('admin.users.index')); ?>"
     >
         Пользователи
     </a>
-</div><?php /**PATH C:\OSPanel\domains\blog\resources\views/admin/includes/leftSideContent.blade.php ENDPATH**/ ?>
+</div>
+<?php /**PATH C:\OSPanel\domains\blog\resources\views/admin/includes/leftSideContent.blade.php ENDPATH**/ ?>

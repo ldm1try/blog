@@ -12,8 +12,4 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sourceMaps()
-    //.js('node_modules/lightbox2/dist/js/lightbox.js', 'public/js')
-    .copy('node_modules/lightbox2/dist', 'public/lightbox2')
-    .sass('resources/sass/app.scss', 'public/css')
-    .sass('resources/sass/bsskin.scss', 'public/css');
+   .sass('resources/sass/app.scss', 'public/css');

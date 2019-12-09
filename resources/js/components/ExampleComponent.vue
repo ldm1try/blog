@@ -8,20 +8,20 @@
                     <div class="card-body">
                         <table class="table table-bordered table-striped">
                             <thead>
-                                <tr>
-                                    <th>id</th>
-                                    <th>Заголовок</th>
-                                    <th>Категория</th>
-                                    <th>Создано</th>
-                                </tr>
+                            <tr>
+                                <th>id</th>
+                                <th>Заголовок</th>
+                                <th>Категория</th>
+                                <th>Создано</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="post in postlist">
-                                    <td>{{ post.id }}</td>
-                                    <td>{{ post.title }}</td>
-                                    <td>{{ post.category_id }}</td>
-                                    <td>{{ post.created_at }}</td>
-                                </tr>
+                            <tr v-for="post in postlist">
+                                <td>{{ post.id }}</td>
+                                <td>{{ post.title }}</td>
+                                <td>{{ post.category_id }}</td>
+                                <td>{{ post.created_at }}</td>
+                            </tr>
                             </tbody>
                         </table>
 
@@ -48,17 +48,14 @@
         /*props: [
             'postlist'
         ],*/
-
         data: function() {
             return {
                 postlist: [],
             }
         },
-
         mounted() {
             this.update();
         },
-
         methods: {
             update: function () {
                 axios.get('/blog/posts/tojson').then((response) => {

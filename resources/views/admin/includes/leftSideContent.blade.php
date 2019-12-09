@@ -12,7 +12,7 @@
         Категории
     </a>
 
-    <a class="list-group-item list-group-item-action my-3
+    <a class="list-group-item list-group-item-action
        {{ Request::is('admin/users', 'admin/users/*') ? 'active' : '' }}"
        href="{{ route('admin.users.index') }}"
     >

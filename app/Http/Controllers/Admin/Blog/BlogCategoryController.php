@@ -43,7 +43,7 @@ class BlogCategoryController extends AdminController
      */
     public function create()
     {
-        $item = new BlogCategory();
+        $item = BlogCategory::make();
         $categoryList = $this->blogCategoryRepository->getForComboBox();
         return view('admin.blog.categories.edit', compact('item', 'categoryList'));
     }
@@ -58,7 +58,7 @@ class BlogCategoryController extends AdminController
         $data = $request->input();
 
         //Создаст объект и добавит в БД до "save"
-        $item = (new BlogCategory())->create($data);
+        $item = BlogCategory::create($data);
 
         if ($item) {
             return redirect()->route('admin.blog.categories.edit', [$item->id])
