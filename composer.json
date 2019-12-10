@@ -14,8 +14,8 @@
         "laravel/framework": "6.*.*",
         "laravel/scout": "^7.1",
         "laravel/tinker": "^1.0",
-        "spatie/laravel-medialibrary": "^7.0.0",
-        "laravel/ui": "^1.0"
+        "laravel/ui": "^1.0",
+        "spatie/laravel-medialibrary": "^7.0.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

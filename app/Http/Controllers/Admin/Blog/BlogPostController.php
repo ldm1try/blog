@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Jobs\BlogPostAfterCreateJob;
 use App\Models\Admin\Blog\BlogPost;
 use App\Http\Requests\BlogPostCreateRequest;
 use App\Http\Requests\BlogPostUpdateRequest;
@@ -65,7 +66,7 @@ class BlogPostController extends AdminController
     public function store(BlogPostCreateRequest $request)
     {
         $data = $request->input();
-        $item = (new BlogPost())->create($data);
+        $item = BlogPost::create($data);
 
         //Загрузка фото
         if ($photoFiles = $request->file('photo_upload')) {
@@ -73,6 +74,8 @@ class BlogPostController extends AdminController
                 $item->addMedia($photoFile)->toMediaCollection('photo');
             }
         }
+
+        BlogPostAfterCreateJob::dispatch($item)/*->delay(now()->addMinutes(1))*/;
 
         if ($item) {
             return redirect()->route('admin.blog.posts.edit', [$item->id])
