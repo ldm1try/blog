@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Jobs\BlogPostAfterCreateJob;
+use App\Jobs\BlogPostAfterDeleteJob;
 use App\Models\Admin\Blog\BlogPost;
 use App\Http\Requests\BlogPostCreateRequest;
 use App\Http\Requests\BlogPostUpdateRequest;
@@ -179,6 +180,9 @@ class BlogPostController extends AdminController
         $result = BlogPost::find($id)->forceDelete();
 
         if ($result) {
+
+            BlogPostAfterDeleteJob::dispatch($id);
+
             return redirect()
                 ->route('admin.blog.posts.index', $id)
                 ->with(['success' => "Запись id[$id] удалена"])
