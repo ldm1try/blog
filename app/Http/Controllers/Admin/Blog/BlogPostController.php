@@ -78,6 +78,9 @@ class BlogPostController extends AdminController
         BlogPostAfterCreateJob::dispatch($item)/*->delay(now()->addMinutes(1))*/;
 
         if ($item) {
+
+            BlogPostAfterCreateJob::dispatch($item)/*->delay(now()->addMinutes(1))*/;
+
             return redirect()->route('admin.blog.posts.edit', [$item->id])
                 ->with(['success' => 'Успешно сохранено']);
         } else {
